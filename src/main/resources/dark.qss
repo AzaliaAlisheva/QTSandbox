@@ -1,0 +1,38 @@
+QMenu {
+    background-color: #F23535; /* sets background of the menu options */
+}
+
+QMenu::item:selected {
+    background-color: #2C3B59;
+}
+
+QTabWidget::pane { /* The tab widget frame */
+    background-color: #1e1f22;
+    border-top: 1px solid #C2C7CB;
+}
+
+/* Style the tab using the tab sub-control. Note that
+    it reads QTabBar _not_ QTabWidget */
+QTabBar::tab {
+    background-color: #1e1f22;
+    color: #8f8f8e;
+    min-width: 8ex;
+    padding: 2px;
+}
+
+QTabBar::tab:selected, QTabBar::tab:hover {
+    color: white;
+}
+
+QTabBar::tab:selected {
+    border-bottom: 3px solid #F23535;
+}
+
+QTabBar::tab:!selected {
+    /* margin-top: 2px; /* make non-selected tabs look smaller */
+}
+
+QPlainTextEdit {
+    background-color: #1e1f22;
+    color: white;
+}
