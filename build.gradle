@@ -1,0 +1,33 @@
+import com.github.jengelman.gradle.plugins.shadow.transformers.XmlAppendingTransformer
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.qtjambi:qtjambi:6.6.1'
+    implementation 'io.qtjambi:qtjambi-native-windows-x64:6.6.1'
+    implementation 'io.qtjambi:qtjambi-uic:6.6.1'
+    implementation 'io.qtjambi:qtjambi-uic-native-windows-x64:6.6.1'
+    implementation 'io.qtjambi:qtjambi-deployer:6.6.1'
+    implementation 'io.qtjambi:qtjambi-deployer-native-windows-x64:6.6.1'
+    implementation files('lib-windows/qt-lib-core-native-windows-x64-6.6.1.jar')
+    implementation files('lib-windows/qt-lib-gui-native-windows-x64-6.6.1.jar')
+    implementation files('lib-windows/qt-lib-widgets-native-windows-x64-6.6.1.jar')
+}
+
+application {
+    mainClass = 'org.example.Main'
+}
+
+shadowJar {
+    transform(XmlAppendingTransformer.class) {
+        resource = 'META-INF/qtjambi-deployment.xml'
+    }
+}
