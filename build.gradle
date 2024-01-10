@@ -1,7 +1,15 @@
-import com.github.jengelman.gradle.plugins.shadow.transformers.XmlAppendingTransformer
+import com.github.unaimillan.gradle.plugins.shadow.transformers.XMLMergeTransformer
+
+buildscript {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'com.github.unaimillan:shadow-xmlmerge-transformer:v0.1.0'
+    }
+}
 
 plugins {
-    id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
@@ -20,14 +28,28 @@ dependencies {
     implementation files('lib-windows/qt-lib-core-native-windows-x64-6.6.1.jar')
     implementation files('lib-windows/qt-lib-gui-native-windows-x64-6.6.1.jar')
     implementation files('lib-windows/qt-lib-widgets-native-windows-x64-6.6.1.jar')
+
+//    shadow 'com.github.johnrengelman:shadow:7.1.2'
+//    shadow gradleApi()
+//    shadow localGroovy()
 }
 
+mainClassName = "org.example.Main"
+
 application {
-    mainClass = 'org.example.Main'
+    mainClass = "$mainClassName"
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': "$mainClassName",
+        )
+    }
 }
 
 shadowJar {
-    transform(XmlAppendingTransformer.class) {
+    transform(XMLMergeTransformer.class) {
         resource = 'META-INF/qtjambi-deployment.xml'
     }
 }
